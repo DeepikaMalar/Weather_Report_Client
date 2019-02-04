@@ -1,0 +1,39 @@
+<form>
+<mat-card class="weather-card">  
+  <mat-card-content>
+      <mat-form-field class="weather-full-width">
+          <input type="text" #city ngModel name="city" placeholder="city" required matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="cityes">
+              {{cityes}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      <button mat-icon-button color="primary" (click) ="getWeather(city.value)">
+          <mat-icon aria-label="add_box">add_box</mat-icon>
+      </button>
+  </mat-card-content>
+
+<div *ngIf="isValid">
+    
+        <table mat-table class="mat-elevation-z8">         
+          <ng-container matColumnDef="symbol" *ngFor="let weatherCard of weatherModelcards">            
+            <td mat-cell> 
+                <mat-card class="weather_report">
+                    <img mat-card-image src={{weatherCard.weatherImg}} class= "weatherImgStyle" >
+                    <span>{{weatherCard.temprature}} &#8451;</span>
+                    <span class ="location">
+                      {{weatherCard.location}}
+                      </span>
+                </mat-card>  
+            </td>
+          </ng-container>            
+         
+          <tr mat-row *matRowDef="let row; columns: rowCount;"></tr>
+        </table>
+</div>
+    
+</mat-card>
+</form>
+
+<router-outlet></router-outlet>
